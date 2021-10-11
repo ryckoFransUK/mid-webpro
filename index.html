@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/ffc8fdeaee.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="stylemid.css" />
+
+    <title>Student  Management</title>
+</head>
+<body id="body-page">
+    <header id="main-header" class="p-4 mb-3 text-white sticky-top">
+        
+            <h3 id="header-title" >Student Management
+                <a href="index.html" id="home-title" class="text-white">Home</a>
+                <a href="about.html" id="about-title" class="text-white">About</a>
+            </h3>                       
+        </div>
+    </header>
+    <div class="container">
+        <div id="main" class="card card-body">
+            <h2 style="position: relative;left: 20px;" class="title">Student Management <br></h2>
+            <hr>
+            <div id="main2" class="card card-body">
+                
+                <div class="row">
+                    <div class="columnLeft" style="padding-left: 15px;">
+                        <h5>Add Student</h5>
+                        <button id="showForm" onclick="hideForm()" type="submit">Show Form Add New Student</button>
+                        <form style="display: none;" id="myForm" onsubmit="validateForm(), addStudents()" autocomplete="off">
+                            <h6 id="textStudentId">Student ID (NIM)</h6>
+                            <input type="text" id="studentIdBox" style="margin-bottom: 15px; border-color: lightgray; padding: 3px; width: 95%; border-radius: 5px; border-width: 1px;"  placeholder="105021820004" required>
+                            <h6>Full Name</h6>
+                            <input type="text" id="studentNameBox" style="margin-bottom: 15px; border-color: lightgray; padding: 3px; width: 95%; border-radius: 5px; border-width: 1px;"  placeholder="John Doe" required>
+                            <h6 style="padding-bottom: 7px;">Gender</h6>
+                            <input style="position: relative;float: left;" type="radio" name="radio" value="Male"><h6 style="position: relative; left: 10px;bottom: 4px;">Male</h6>
+                            <input style="position: relative;float: left;" type="radio" name="radio" value="Female"required><h6 style="position: relative; left: 10px;bottom: 4px;" >Female</h6>
+                            <h6 style="margin-top: 10px;">Faculty</h6>
+                            <select id="facultyDropdownForm" onchange="changeListForm(this.value)" style="margin-bottom: 10px;width: 95%; border-radius: 5px; padding: 3px; border-color: lightgray;" name="facultyForm" required>
+                                <option value="" disabled selected>-- SELECT FACULTY --</option>
+                                <option value="Akademi Sekretari Manajemen Indonesia Klabat">Akademi Sekretari Manajemen Indonesia Klabat</option>
+                                <option value="Fakultas Ekonomi dan Bisnis">Fakultas Ekonomi dan Bisnis</option>
+                                <option value="Fakultas Filsafat">Fakultas Filsafat</option>
+                                <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
+                                <option value="Fakultas Keguruan dan Ilmu Pendidikan">Fakultas Keguruan dan Ilmu Pendidikan</option>
+                                <option value="Fakultas Keperawatan">Fakultas Keperawatan</option>
+                                <option value="Fakultas Pertanian">Fakultas Pertanian</option>
+                                <option value="Pascasarjana">Pascasarjana</option>
+                            </select>
+                            <h6>Program of Study</h6>
+                            <select id="prodiDropdownForm" style="margin-bottom: 20px;width: 95%; border-radius: 5px; padding: 3px; border-color: lightgray;" name="prodiForm"   required>
+                                <option value="" disabled selected>-- SELECT PROGRAM OF STUDY --</option>
+                            </select>
+                            <input type="submit"  id="buttonAddStudent"></input>      
+                        </form>
+                    </div>
+
+                    
+                    <div class="columnRight">
+                        <h5>Filter  Students  By</h5>
+                        <p>Faculty</p>
+                        <div class="container">
+                        <select name="faculty" class="filterDropdown" id="facultyDropdown" onchange="changeList(this.value)">
+                            <option value="none">-- SELECT FACULTY --</option>
+                                <option value="Akademi Sekretari Manajemen Indonesia Klabat">Akademi Sekretari Manajemen Indonesia Klabat</option>
+                                <option value="Fakultas Ekonomi dan Bisnis">Fakultas Ekonomi dan Bisnis</option>
+                                <option value="Fakultas Filsafat">Fakultas Filsafat</option>
+                                <option value="Fakultas Ilmu Komputer">Fakultas Ilmu Komputer</option>
+                                <option value="Fakultas Keguruan dan Ilmu Pendidikan">Fakultas Keguruan dan Ilmu Pendidikan</option>
+                                <option value="Fakultas Keperawatan">Fakultas Keperawatan</option>
+                                <option value="Fakultas Pertanian">Fakultas Pertanian</option>
+                                <option value="Pascasarjana">Pascasarjana</option>
+                          </select>
+                          <button id="facultyBtn" class="filterButton" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                        <p>Program of Study</p>
+                        <div class="container">
+                        <select name="prodi" class="filterDropdown" id="prodiDropdown" >
+                            <option value="" disabled selected>-- SELECT PROGRAM OF STUDY --</option>
+                          </select>
+                          <button id="prodiBtn" class="filterButton" type="button" onclick="functionClickProdi()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <hr>
+                <h1 style="text-align: center;">Students</h1>
+                <div>
+                    <i class="fas fa-search" id="searchIconStudent"></i>
+                    <input  type="text" id="searchStudent" onkeyup="functionSearch()" placeholder="Search student by name..." >
+                    
+                </div>
+                
+                
+                
+                <div  style="padding:20px; padding-top: 30px; border-color: transparent;">
+                  <!-- <table id="studentTableHead"> -->
+                    <table id="studentTable" >
+                    <tr>
+                        <th>Student ID (NIM)</th>
+                        <th>Full Name</th>
+                        <th>Gender</th>
+                        <th>Faculty</th>
+                        <th>Program of Study</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr> 
+                        <td colspan="6"> <hr /> </td>      
+                    </tr>
+                    <tr>
+                        <td>105011910041</td>
+                        <td>Frans Rycko</td>
+                        <td>Male</td>
+                        <td>Fakultas Ilmu Komputer</td>
+                        <td>Sistem Informasi</td>
+                        <td><button id="rowDelete" class="deleteButton" value="delete" onclick="deleteRowFunction(this)"><i class="fas fa-user-minus"></i></button></td>
+                    </tr>
+                    
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        made with <i class="fab fa-js-square"style="margin-right: 5px;"></i><i class="fab fa-bootstrap"style="margin-right: 5px;"></i><i class="fab fa-font-awesome"style="margin-right: 5px;"></i>
+        <br>
+ <i class="fas fa-fire" style="margin-right: 5px;"></i><i class="far fa-copyright" style="margin-right: 5px;"></i>
+    </div>
+    <script src="dom.js"></script>
+</body>
+</html>
